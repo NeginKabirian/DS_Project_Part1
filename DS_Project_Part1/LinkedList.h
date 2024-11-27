@@ -1,0 +1,159 @@
+#pragma once
+#include <stdexcept>
+template<typename T>
+class Node
+
+{
+	T data;
+	Node<T>* next;
+	Node<T>* prev;
+public:
+	Node(const T& data) : data(data)
+	{
+		next = nullptr;
+		prev = nullptr;
+	}
+	Node() {
+		next = prev = nullptr;
+	}
+	T& getData() {
+		return this->data;
+	}
+	Node<T>*& getNext() {
+		return this->next;
+	}
+	Node<T>*& getPrev() {
+		return this->prev;
+	}
+	template<typename>
+	friend class LinkedList;
+};
+template <typename T = int>
+class LinkedList
+{
+public:
+	LinkedList();
+	bool empty() const;
+	const T& front() const;
+	const T& back() const;
+	void push_front(const T&);
+	void push_back(const T&);
+	void pop_front();
+	void pop_back();
+	void print();
+	~LinkedList();
+	Node<T>*& GetHead();
+private:
+	Node<T>* head;
+	Node<T>* tail;
+	template<typename>
+	
+};
+template<typename T>
+bool LinkedList<T>::empty() const
+{
+	if (!head) {
+		return true;
+	}
+	return false;
+}
+template<typename T>
+Node<T>*& LinkedList<T>::GetHead() {
+	return head;
+}
+template<typename T>
+LinkedList<T>::LinkedList() {
+	head = tail = nullptr;
+}
+template <typename T>
+const T& LinkedList<T>::front()const {
+	if (this->empty()) {
+		throw("queue is empty");
+	}
+	return head->data;
+}
+template <typename T>
+const T& LinkedList<T>::back()const {
+	if (this->empty()) {
+		throw("queue is empty");
+	}
+	return tail->data;
+}
+
+template<typename T>
+void LinkedList<T>::push_front(const T& data)
+{
+	Node<T>* node = new Node<T>(data);
+	if (this->empty()) {
+		head = tail = node;
+		return;
+	}
+	node->next = head;
+	head->prev = node;
+	head = node;
+}
+
+template<typename T>
+void LinkedList<T>::push_back(const T& data)
+{
+	Node<T>* node = new Node<T>(data);
+	if (this->empty()) {
+		head = tail = node;
+		return;
+	}
+	node->prev = tail;
+	tail->next = node;
+	tail = node;
+}
+
+template<typename T>
+void LinkedList<T>::pop_front()
+{
+	if (this->empty()) {
+		throw std::out_of_range("LinkedList is empty");
+	}
+	if (head == tail) {
+		delete head;
+		head = tail = nullptr;
+		return;
+	}
+	Node<T>* temp = head;
+	head = head->next;
+	head->prev = nullptr;
+	delete temp;
+}
+
+template<typename T>
+void LinkedList<T>::pop_back()
+{
+	if (this->empty()) {
+		throw std::out_of_range("LinkedList is empty");
+	}
+
+	if (head == tail) {
+		delete tail;
+		head = tail = nullptr;
+	}
+	Node<T>* temp = tail;
+	tail = tail->prev;
+	tail->next = nullptr;
+	delete temp;
+}
+
+template<typename T>
+void LinkedList<T>::print()
+{
+	std::cout << std::endl;
+	if (!empty()) {
+		for (Node<T>* i = head; i != tail->next && i; i = i->next) {
+			std::cout << i->data << " ";
+		}
+	}
+	std::cout << std::endl;
+}
+template<typename T>
+LinkedList<T>::~LinkedList() {
+	while (!empty()) {
+		pop_front();
+	}
+}

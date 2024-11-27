@@ -3,10 +3,13 @@
 using namespace std;
 class Music {
 private:
-	static int Id;
+	static int GId;
+	int Id;
 	const string name;
 	int year;
 	string lyrics;
 public:
-	Music(string _name ,int _year ,string lyrics) : name(_name) , year(year) , lyrics(lyrics){}
+	Music(string _name ,int _year ,string lyrics) : name(_name) , year(_year) , lyrics(lyrics){
+		Id = ++GId;
+	}
 };
