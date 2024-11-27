@@ -1,0 +1,39 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+*.obj
+*.exe
+*.dll
+*.pdb
+*.lib
+*.nupkg
+*.log
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.userprefs
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Visual Studio specific files
+.vs/
+.vscode/
+*.VC.db
+*.VC.VC.opendb
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# End of file
