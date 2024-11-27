@@ -129,7 +129,14 @@
   <ItemGroup>
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Music.h" />
+    <ClInclude Include="PlayList.h" />
     <ClInclude Include="Singer.h" />
+    <ClInclude Include="SparseSet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PlayList.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SparseSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

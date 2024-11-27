@@ -33,6 +33,7 @@ class LinkedList
 {
 public:
 	LinkedList();
+	LinkedList(const LinkedList<T>&);
 	bool empty() const;
 	const T& front() const;
 	const T& back() const;
@@ -46,9 +47,9 @@ public:
 private:
 	Node<T>* head;
 	Node<T>* tail;
-	template<typename>
 	
 };
+
 template<typename T>
 bool LinkedList<T>::empty() const
 {
@@ -64,6 +65,15 @@ Node<T>*& LinkedList<T>::GetHead() {
 template<typename T>
 LinkedList<T>::LinkedList() {
 	head = tail = nullptr;
+}
+template<typename T>
+inline LinkedList<T>::LinkedList(const LinkedList<T>& other)
+{
+	Node<T>* current = other.head; 
+	while (current) {
+		this->push_back(current->data);
+		current = current->next;
+	}
 }
 template <typename T>
 const T& LinkedList<T>::front()const {
