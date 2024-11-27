@@ -12,11 +12,11 @@ public:
 	Singer(string _name) : name(_name){
 		Id = ++GId;
 	}
-	/*Singer(const Singer& other) {
+	Singer(const Singer& other) {
 		Id = other.Id;
 		name = other.name;
 		
-	}*/
+	}
 	//Singer()
 	int getId() {
 		return Id;
