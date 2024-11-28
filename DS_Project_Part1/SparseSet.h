@@ -14,6 +14,7 @@ public:
 	void delseId(int id);
 	void findId(int id);
 	void prints();
+	void cls();
 };
 
 template<typename T>
@@ -61,9 +62,15 @@ inline void SparseSet<Singer>::findId(int id)
 	singer.print();
 }
 template<>
-inline void SparseSet<Singer>::prints() {
+inline void SparseSet<Singer>::prints() { //change to generic
 	for (int i = 0; i < size; ++i) {
 		dense[i].printAllInfo();
 	}
+}
+
+template<typename T>
+inline void SparseSet<T>::cls()
+{
+	size = 0;
 }
 

@@ -15,6 +15,8 @@ int main() {
 		//sparsesinger.findId(singer.getId());
 		//sparsesinger.delseId(1);
 		//sparsesinger.findId(singer.getId());
+		//sparsesinger.prints();
+		sparsesinger.cls();
 		sparsesinger.prints();
 	}
 	catch (const std::exception& x) {

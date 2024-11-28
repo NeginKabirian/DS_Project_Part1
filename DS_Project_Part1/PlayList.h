@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include"LinkedList.h"
-//#include "Music.h"
 class PlayList
 {
 	static int GId;
