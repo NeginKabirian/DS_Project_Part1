@@ -12,13 +12,14 @@ public:
 	SparseSet(int , int);
 	void addsname(Singer&);
 	void delseId(int id);
+	void findId(int id);
 };
 
 template<typename T>
-inline SparseSet<T>::SparseSet(int _capacity, int _maxValue) : capacity(_capacity) , maxValue(_maxValue)
+inline SparseSet<T>::SparseSet(int _capacity , int _maxValue) : capacity(_capacity) , maxValue(_maxValue)
 {
-	sparse = new int(maxValue + 1);
-	dense = new T(capacity);
+	sparse = new int[maxValue + 1];
+	dense = new T[capacity];
 	size = 0;
 }
 template<>
@@ -39,7 +40,7 @@ inline void SparseSet<Singer>::addsname(Singer& singer)
 template<>
 inline void SparseSet<Singer>::delseId(int id)
 {
-	if (id < 0 || id >= size || sparse[id] == -1) {
+	if (id < 0 || sparse[id] == -1) {
 		throw std::out_of_range("Invalid id for deletion.");
 	}
 		Singer temp = dense[size - 1];
@@ -47,5 +48,15 @@ inline void SparseSet<Singer>::delseId(int id)
 		sparse[temp.getId()] = sparse[id];
 		sparse[id] = -1;
 		size--;
+}
+
+template<>
+inline void SparseSet<Singer>::findId(int id)
+{
+	if (sparse[id] == -1 || id < 0) {
+		throw std::out_of_range("Invalid id for searching.");
+	}
+	Singer singer = dense[sparse[id]];
+	singer.print();
 }
 

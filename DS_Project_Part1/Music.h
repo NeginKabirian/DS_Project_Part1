@@ -12,4 +12,10 @@ public:
 	Music(string _name ,int _year ,string lyrics) : name(_name) , year(_year) , lyrics(lyrics){
 		Id = ++GId;
 	}
+	string getLyrics() {
+		return lyrics;
+	}
+	string getName() {
+		return name;
+	}
 };

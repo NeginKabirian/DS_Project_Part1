@@ -1,5 +1,6 @@
 #pragma once
 #include <stdexcept>
+#include"Music.h"
 template<typename T>
 class Node
 
@@ -28,7 +29,7 @@ public:
 	template<typename>
 	friend class LinkedList;
 };
-template <typename T = int>
+template <typename T>
 class LinkedList
 {
 public:
@@ -70,11 +71,14 @@ template<typename T>
 inline LinkedList<T>::LinkedList(const LinkedList<T>& other)
 {
 	Node<T>* current = other.head; 
+	this->head = nullptr;
+	this->tail = nullptr;
 	while (current) {
 		this->push_back(current->data);
 		current = current->next;
 	}
 }
+
 template <typename T>
 const T& LinkedList<T>::front()const {
 	if (this->empty()) {
@@ -155,11 +159,18 @@ void LinkedList<T>::print()
 {
 	std::cout << std::endl;
 	if (!empty()) {
-		for (Node<T>* i = head; i != tail->next && i; i = i->next) {
-			std::cout << i->data << " ";
+		for (Node<T>* i = head; i != nullptr; i = i->next) {
+			std::cout << i->getData() << " ";
 		}
+		std::cout << std::endl;
 	}
-	std::cout << std::endl;
+}
+template<>
+inline void LinkedList<Music>::print() {
+	for (Node<Music>* i = head; i != nullptr; i = i->next) {
+		std::cout << "Name: " << i->getData().getName() << std::endl;
+		std::cout << "Lyrics: " << i->getData().getLyrics() << std::endl;
+	}
 }
 template<typename T>
 LinkedList<T>::~LinkedList() {

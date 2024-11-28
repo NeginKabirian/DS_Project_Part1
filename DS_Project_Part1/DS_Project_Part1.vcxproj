@@ -134,7 +134,10 @@
     <ClInclude Include="SparseSet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="PlayList.cpp" />
+    <ClCompile Include="Singer.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SparseSet.cpp" />
   </ItemGroup>
