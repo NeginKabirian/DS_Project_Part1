@@ -13,6 +13,7 @@ public:
 	void addsname(Singer&);
 	void delseId(int id);
 	void findId(int id);
+	void prints();
 };
 
 template<typename T>
@@ -58,5 +59,11 @@ inline void SparseSet<Singer>::findId(int id)
 	}
 	Singer singer = dense[sparse[id]];
 	singer.print();
+}
+template<>
+inline void SparseSet<Singer>::prints() {
+	for (int i = 0; i < size; ++i) {
+		dense[i].printAllInfo();
+	}
 }
 
