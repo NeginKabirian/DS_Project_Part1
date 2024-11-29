@@ -1,5 +1,6 @@
 #pragma once
 #include "Singer.h"
+#include "PlayList.h"
 template <typename T>
 class SparseSet
 {
@@ -10,7 +11,9 @@ class SparseSet
 	int maxValue;
 public:
 	SparseSet(int , int);
-	void addsname(Singer&);
+	//void addsname(Singer&);
+	void addsname(const string&);
+	void addpname(const string&);
 	void delseId(int id);
 	void findId(int id);
 	void prints();
@@ -25,19 +28,19 @@ inline SparseSet<T>::SparseSet(int _capacity , int _maxValue) : capacity(_capaci
 	size = 0;
 }
 template<>
-inline void SparseSet<Singer>::addsname(Singer& singer)
+inline void SparseSet<Singer>::addsname(const string& name)
 {
-	int id = singer.getId();
-	if (id > maxValue) {
-		throw std::out_of_range("Invalid id for deletion.");
-		return;
-	}
+	Singer* singer = new Singer(name);
 	if (size >= capacity) {
 		cout << "Sparese is Full";
 	}
 	//search
-	dense[size] = singer;
-	sparse[id] = size++;
+	dense[size] = *singer;
+	if (singer->getId() > maxValue) {
+		throw std::out_of_range("Invalid id for deletion.");
+		return;
+	}
+	sparse[singer->getId()] = size++;
 }
 template<>
 inline void SparseSet<Singer>::delseId(int id)
@@ -73,4 +76,18 @@ inline void SparseSet<T>::cls()
 {
 	size = 0;
 }
-
+template<>
+inline void SparseSet<PlayList>::addpname(const string& name)
+{
+	PlayList* p = new PlayList(name);
+	if (size >= capacity) {
+		cout << "Sparese is Full";
+	}
+	//search
+	dense[size] = *p;
+	if (p->getId() > maxValue) {
+		throw std::out_of_range("Invalid id for deletion.");
+		return;
+	}
+	sparse[p->getId()] = size++;
+}

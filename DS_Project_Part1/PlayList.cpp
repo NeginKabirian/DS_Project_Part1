@@ -1,1 +1,2 @@
-//#include "PlayList.h"
+#include "PlayList.h"
+int PlayList::GId = 0;

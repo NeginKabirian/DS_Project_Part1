@@ -5,7 +5,23 @@ class PlayList
 {
 	static int GId;
 	int Id;
-	const string name;
+	string name;
 	LinkedList<Music> music;
-};
+public:
+	PlayList(string _name = "", LinkedList<Music> _music = LinkedList<Music>()) : name(_name), music(_music) {
+		Id = ++GId;
+	}
+
+	int getId() {
+		return Id;
+	}
+	void printAllInfo() {
+		cout << "PlayList : " << name << endl;
+		cout << "music :" << endl;
+		music.print();
+	}
+	void print() {
+		music.print();
+	}
+ };
 
