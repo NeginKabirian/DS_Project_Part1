@@ -18,4 +18,10 @@ public:
 	string getName() {
 		return name;
 	}
+	void print() {
+		cout << endl;
+		cout << "name : " << name << endl;
+		cout << "year : " << year << endl;
+		cout << "lyrics : " << lyrics << endl;
+	}
 };

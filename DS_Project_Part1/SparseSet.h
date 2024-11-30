@@ -19,6 +19,7 @@ public:
 	void cls();
 	//void addmp(int, int);
 	void addms(string, int, string, int);
+	void findmname(const string);
 
 };
 
@@ -60,7 +61,7 @@ inline void SparseSet<Singer>::delseId(int id)
 template<>
 inline void SparseSet<Singer>::findId(int id)
 {
-	if (sparse[dense[id].getId()] == -1 || id < 0) {
+	if (id < 0 || sparse[dense[id].getId()] == -1) {
 		throw std::out_of_range("Invalid id for searching.");
 	}
 	Singer singer = dense[sparse[id]];
@@ -95,13 +96,28 @@ inline void SparseSet<PlayList>::addpname(const string& name)
 	sparse[p->getId()] = size++;
 }
 template<>
-inline void SparseSet<Singer>::addms(const string music_name, int year,const string lyrics, int artist_id)  //handele lyrics input 
+inline void SparseSet<Singer>::addms(const string music_name, int year,const string lyrics, int artist_id)  //handele lyrics input  //suffix array
 {
 	Music* music = new Music(music_name, year, lyrics);
-	if (sparse[dense[artist_id].getId()] == -1 || artist_id < 0 || artist_id > maxValue) {
+	if (artist_id < 0 || artist_id > maxValue||sparse[dense[artist_id].getId()] == -1 ) {
 		throw std::out_of_range("Invalid artist_id.");
+		return;
 	}
 	dense[artist_id].getMusic().push_front(*music);
+}
+template<>
+inline void SparseSet<Singer>::findmname(const string music_name)  //order ?
+{
+	for (int i = 0 ; i < size ; ++i) {
+		auto music = dense[i].getMusic();
+		auto temp = music.GetHead();
+		while (temp) {
+			if (temp->getData().getName() == music_name) {
+				temp->getData().print();
+			}
+			temp = temp->getNext();
+		}
+	}
 }
 //template<typename T>
 //inline void SparseSet<T>::addmp(int music_id, int playlist_id) //search ig in All LinkedList>
