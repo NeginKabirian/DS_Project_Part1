@@ -18,6 +18,10 @@ int main() {
 		//sparsesinger.prints();
 		/*sparsesinger.cls();*/
 		sparsesinger.prints();
+		sparsesinger.addms("Love", 2020, "I Love you\nbaby\nhoney ", 1);
+		sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);
+		sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
+		sparsesinger.prints();
 	}
 	catch (const std::exception& x) {
 		cout << x.what();

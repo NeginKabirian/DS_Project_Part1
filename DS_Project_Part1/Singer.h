@@ -16,6 +16,9 @@ public:
 	int getId() {
 		return Id;
 	}
+	LinkedList<Music>& getMusic() {
+		return music;
+	}
 	void printAllInfo() {
 		cout << "Singer : " << name<<endl;
 		cout << "music :"<<endl;
