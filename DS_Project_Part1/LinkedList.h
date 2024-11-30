@@ -60,7 +60,7 @@ bool LinkedList<T>::empty() const
 	return false;
 }
 template<typename T>
-Node<T>*& LinkedList<T>::GetHead() {
+Node<T>*& LinkedList<T>::GetHead(){
 	return head;
 }
 template<typename T>

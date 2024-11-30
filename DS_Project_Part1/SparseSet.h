@@ -18,7 +18,7 @@ public:
 	void prints();
 	void cls();
 	//void addmp(int, int);
-	void addms(string, int, string, int);
+	void addms(const string, int,const string, int);
 	void findmname(const string);
 
 };
@@ -96,7 +96,7 @@ inline void SparseSet<PlayList>::addpname(const string& name)
 	sparse[p->getId()] = size++;
 }
 template<>
-inline void SparseSet<Singer>::addms(const string music_name, int year,const string lyrics, int artist_id)  //handele lyrics input  //suffix array
+inline void SparseSet<Singer>::addms(const string music_name, int year, const string lyrics, int artist_id)  //handele lyrics input  //suffix array
 {
 	Music* music = new Music(music_name, year, lyrics);
 	if (artist_id < 0 || artist_id > maxValue||sparse[dense[artist_id].getId()] == -1 ) {
