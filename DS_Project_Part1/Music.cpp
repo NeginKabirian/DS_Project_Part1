@@ -71,64 +71,6 @@ void Music::merge(int p, int q, int r)
 	delete[] leftIndices;
 	delete[] rightIndices;
 }
-//void Music::merge(int p, int q, int r) {
-//	int n1 = q - p + 1;
-//	int n2 = r - q;
-//
-//	// ????? ????? ???? ????????? ????
-//	char** left = new char* [n1];
-//	char** right = new char* [n2];
-//
-//	int* leftIndices = new int[n1];
-//	int* rightIndices = new int[n2];
-//
-//	for (int i = 0; i < n1; ++i) {
-//		left[i] = substr[p + i];
-//		leftIndices[i] = SuffixArray[p + i];
-//	}
-//	for (int i = 0; i < n2; ++i) {
-//		right[i] = substr[q + 1 + i];
-//		rightIndices[i] = SuffixArray[q + 1 + i];
-//	}
-//
-//	int i = 0, j = 0, k = p;
-//
-//	// ????? ?? ????
-//	while (i < n1 && j < n2) {
-//		if (strcmp(left[i], right[j]) < 0) {
-//			substr[k] = left[i];
-//			SuffixArray[k] = leftIndices[i];
-//			i++;
-//		}
-//		else {
-//			substr[k] = right[j];
-//			SuffixArray[k] = rightIndices[j];
-//			j++;
-//		}
-//		k++;
-//	}
-//
-//	// ?????????? ?????????????
-//	while (i < n1) {
-//		substr[k] = left[i];
-//		SuffixArray[k] = leftIndices[i];
-//		i++;
-//		k++;
-//	}
-//	while (j < n2) {
-//		substr[k] = right[j];
-//		SuffixArray[k] = rightIndices[j];
-//		j++;
-//		k++;
-//	}
-//
-//	// ???????? ?????
-//	delete[] left;
-//	delete[] right;
-//	delete[] leftIndices;
-//	delete[] rightIndices;
-//}
-
 void Music::mergeSort(int p, int r)
 {
 	if(p < r) {
@@ -139,8 +81,6 @@ void Music::mergeSort(int p, int r)
 	}
 }
 void Music::build_SuffixArray() {
-	//char* temp = lyrics.c_str();
-	
 	size_t bufferSize = lyrics.size() + 1;
 	char* temp = new char[bufferSize];     
 	strcpy_s(temp, bufferSize, lyrics.c_str());
@@ -151,15 +91,15 @@ void Music::build_SuffixArray() {
 	
 	for (int i = 0; i < size; ++i) {
 		substr[i] = temp + i;
-		cout << substr[i];
+		/*cout << substr[i];*/
 		SuffixArray[i] = i;
 	}
 	substr[size] = nullptr;
 	mergeSort(0, size - 1);
-	for (int i = 0; i < size; ++i) {
+	/*for (int i = 0; i < size; ++i) {
 		cout<<SuffixArray[i]<<endl;
 		cout << substr[i];
-	}
+	}*/
 	cout << endl;
 	delete[] temp;
 }

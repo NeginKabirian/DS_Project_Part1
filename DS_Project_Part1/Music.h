@@ -18,7 +18,7 @@ private:
 	/*~Music();*/
 public:
 	Music(string _name, int _year,string _lyrics) : name(_name), year(_year), lyrics(_lyrics) {
-		Id = ++GId;
+		Id = GId++;
 		SuffixArray = nullptr;
 		substr = nullptr;
 		build_SuffixArray();
@@ -28,6 +28,9 @@ public:
 	}
 	string getName()const {
 		return name;
+	}
+	int getId() {
+		return Id;
 	}
 	void print()const {
 		cout << endl;

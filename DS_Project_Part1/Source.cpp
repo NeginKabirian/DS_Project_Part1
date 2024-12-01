@@ -17,12 +17,24 @@ int main() {
 		//sparsesinger.findId(singer.getId());
 		//sparsesinger.prints();
 		/*sparsesinger.cls();*/
-		sparsesinger.prints();
+		/*string input;
+		while (true) {
+			std::getline(std::cin, input); 
+			if (input == "END") { 
+				break;
+			}
+			multilineInput += line + "\n"; 
+		}*/
+	/*	sparsesinger.prints();*/
 		sparsesinger.addms("Love", 2020,"banana", 1);
-		/*sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);
-		sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);*/
-		sparsesinger.prints();
-		sparsesinger.findmname("Love");
+		sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);
+		 sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
+		/*sparsesinger.prints();*/
+		/*sparsesinger.findmname("Love");*/
+		SparseSet<PlayList> pl(4,10);
+		pl.addpname("Bahar");
+		pl.addmp(3, 0, sparsesinger);
+
 	}
 	catch (const std::exception& x) {
 		cout << x.what();

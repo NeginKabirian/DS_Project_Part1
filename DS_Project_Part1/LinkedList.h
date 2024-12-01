@@ -174,7 +174,7 @@ inline void LinkedList<Music>::print() {
 }
 template<typename T>
 LinkedList<T>::~LinkedList() {
-	while (!empty()) {
+	/*while (!empty()) {
 		pop_front();
-	}
+	}*/
 }

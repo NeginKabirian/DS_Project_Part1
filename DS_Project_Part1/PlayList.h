@@ -23,5 +23,9 @@ public:
 	void print() {
 		music.print();
 	}
+	LinkedList<Music>& getMusic() {
+		return music;
+	}
+
  };
 
