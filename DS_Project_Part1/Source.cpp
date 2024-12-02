@@ -29,11 +29,14 @@ int main() {
 		sparsesinger.addms("Love", 2020,"banana", 1);
 		sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);
 		 sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
-		/*sparsesinger.prints();*/
+		sparsesinger.prints();
 		/*sparsesinger.findmname("Love");*/
 		SparseSet<PlayList> pl(4,10);
-		pl.addpname("Bahar");
-		pl.addmp(3, 0, sparsesinger);
+		/*pl.addpname("Bahar");
+		pl.addmp(3, 0, sparsesinger);*/
+		sparsesinger.delm(1, 0, pl);
+		cout << endl << endl<<endl<<endl;
+		sparsesinger.prints();
 
 	}
 	catch (const std::exception& x) {

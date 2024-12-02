@@ -21,6 +21,7 @@ public:
 	void addms(const string, int,const string, int);
 	void findmname(const string);
 	Music& searchmId(int music_id);
+	void delm(int, int, SparseSet<PlayList>&);
 
 
 };
@@ -140,6 +141,32 @@ inline Music& SparseSet<T>::searchmId(int music_id)
 		throw exception("music not found");
 	}
 }
+template<>
+inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayList>& playlist)
+{
+	if (artist_id < 0 || artist_id > maxValue || sparse[dense[artist_id].getId()] == -1) {
+		throw std::out_of_range("Invalid artist_id.");
+		return;
+	}
+	/*sparse[dense[artist_id].getId()] = sparse[dense[size].getId()];
+	dense[artist_id] = dense[size];
+	sparse[dense[size].getId()] = -1;
+	size--;*/
+	
+	Singer& singer = dense[artist_id];
+	LinkedList<Music>& music = singer.getMusic();
+	auto temp = music.GetHead();
+	while (temp) {
+		if (music_id == temp->getData().getId()) {
+			//del Node LinkedList
+			music.pop_node(temp);
+			return;
+		}
+		temp = temp->getNext();
+	}
+	cout << "music_id Not Found";
+	//delm from playlist
+};
 template<>
 inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<Singer>& singer) //search ig in All LinkedList>
 {

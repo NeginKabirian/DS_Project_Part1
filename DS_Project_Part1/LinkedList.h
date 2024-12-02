@@ -42,6 +42,7 @@ public:
 	void push_back(const T&);
 	void pop_front();
 	void pop_back();
+	void pop_node(Node<T>*&);
 	void print();
 	~LinkedList();
 	Node<T>*& GetHead();
@@ -152,6 +153,33 @@ void LinkedList<T>::pop_back()
 	tail = tail->prev;
 	tail->next = nullptr;
 	delete temp;
+}
+
+template<typename T>
+inline void LinkedList<T>::pop_node(Node<T>*& delnode)
+{
+	auto prev = delnode->getPrev();
+	auto next = delnode->getNext();
+	if (prev == nullptr && next == nullptr) {
+		head = nullptr;
+		tail = nullptr;
+		return;
+	}
+	if (prev == nullptr) {
+		head = next;
+		return;
+	}
+	if (next == nullptr) {
+		prev->next = nullptr;
+		tail = prev;
+		delete delnode;
+		delnode = nullptr;
+		return;
+	}
+	prev->getNext() = next;
+	next->getPrev() = prev;
+	delete delnode;
+	delnode = nullptr;
 }
 
 template<typename T>
