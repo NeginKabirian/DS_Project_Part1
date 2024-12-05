@@ -131,6 +131,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="PlayList.h" />
     <ClInclude Include="Singer.h" />
+    <ClInclude Include="Sort.h" />
     <ClInclude Include="SparseSet.h" />
   </ItemGroup>
   <ItemGroup>

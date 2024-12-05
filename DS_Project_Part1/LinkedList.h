@@ -83,14 +83,14 @@ inline LinkedList<T>::LinkedList(const LinkedList<T>& other)
 template <typename T>
 const T& LinkedList<T>::front()const {
 	if (this->empty()) {
-		throw("queue is empty");
+		throw(out_of_range("queue is empty"));	
 	}
 	return head->data;
 }
 template <typename T>
 const T& LinkedList<T>::back()const {
 	if (this->empty()) {
-		throw("queue is empty");
+		throw(out_of_range("queue is empty"));
 	}
 	return tail->data;
 }

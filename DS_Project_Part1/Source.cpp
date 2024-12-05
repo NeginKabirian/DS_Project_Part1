@@ -1,4 +1,5 @@
 #include"SparseSet.h"
+#include "Sort.h"
 int main() {
 	try {
 		/*LinkedList<Music> m1;*/
@@ -37,9 +38,16 @@ int main() {
 		sparsesinger.delm(1, 0, pl);
 		cout << endl << endl<<endl<<endl;
 		sparsesinger.prints();
+		Sort<int> sort;
+		int arr[8] = { 2, 24, 45, 66, 75, 90, 170, 802 };
+		sort.Radix(arr,8);
+		for (int i = 0; i < 8; ++i) {
+			cout << arr[i] << " ";
+		}
 
 	}
 	catch (const std::exception& x) {
 		cout << x.what();
 	}
+	
 }
