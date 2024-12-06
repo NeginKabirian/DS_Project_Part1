@@ -16,10 +16,18 @@ private:
 	bool strcomp(int ,int);
 	int len(char*);
 	/*~Music();*/
+	
+	struct Suffix{
+		int index;
+		int Rank[2];
+	};
+	int cmp(Suffix a, Suffix b);
+	//Suffix* suffixes;
+	void RadixSort(Suffix*& suffixes,int n, int maxRank, int step);
 public:
 	Music(string _name, int _year,string _lyrics) : name(_name), year(_year), lyrics(_lyrics) {
 		Id = GId++;
-		SuffixArray = nullptr;
+		SuffixArray = new int[_lyrics.length()];
 		substr = nullptr;
 		build_SuffixArray();
 	}

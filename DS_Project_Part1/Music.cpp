@@ -1,4 +1,6 @@
-#include "Music.h"
+﻿#include "Music.h"
+#include <algorithm>
+#include <cstring>
 int Music::GId = 0;
 
 int Music::len(char* arr)
@@ -10,6 +12,7 @@ int Music::len(char* arr)
 	return size;*/
 	return std::strlen(arr);
 }
+
 bool Music::strcomp(int i, int j)
 {
 	char* a = substr[SuffixArray[i]];
@@ -80,31 +83,86 @@ void Music::mergeSort(int p, int r)
 		merge(p, q, r);
 	}
 }
-void Music::build_SuffixArray() {
-	size_t bufferSize = lyrics.size() + 1;
-	char* temp = new char[bufferSize];     
-	strcpy_s(temp, bufferSize, lyrics.c_str());
-	int size = len(temp);
-	strcpy_s(temp, bufferSize, lyrics.c_str());
-	substr = new char* [size+1];
-	SuffixArray = new int[size];
-	
-	for (int i = 0; i < size; ++i) {
-		substr[i] = temp + i;
-		/*cout << substr[i];*/
-		SuffixArray[i] = i;
+
+void Music::RadixSort(Suffix*& suffixes, int n, int maxValue, int step) {
+	Suffix* temp = new Suffix[n];
+	int* start = new int[maxValue + 2](); 
+	for (int i = 0; i < n; ++i) {
+		start[suffixes[i].Rank[step] + 1]++; 
 	}
-	substr[size] = nullptr;
-	mergeSort(0, size - 1);
-	/*for (int i = 0; i < size; ++i) {
-		cout<<SuffixArray[i]<<endl;
-		cout << substr[i];
-	}*/
-	cout << endl;
+	for (int i = 1; i <= maxValue + 1; ++i) {
+		start[i] += start[i - 1];
+	}
+	for (int i = n - 1; i >= 0; --i) {
+		int rankVal = suffixes[i].Rank[step] + 1; 
+		temp[start[rankVal] - 1] = suffixes[i];
+		start[rankVal]--;
+	}
+	for (int i = 0; i < n; ++i) {
+		suffixes[i] = temp[i];
+	}
+
 	delete[] temp;
+	delete[] start;
 }
-//
-//Music::~Music() {
-//	delete[] SuffixArray;
-//	delete[] substr;
-//}
+void Music::build_SuffixArray() {
+	string str = lyrics;
+	int len = str.length();
+	Suffix* suffixes = new Suffix[len];
+
+	for (int i = 0; i < len; ++i) {
+		suffixes[i].index = i;
+		suffixes[i].Rank[0] = str[i] - 'a';
+		suffixes[i].Rank[1] = (i + 1 < len) ? str[i + 1] - 'a' : -1;
+	}
+
+	RadixSort(suffixes, len, 256, 1);
+	RadixSort(suffixes, len, 256, 0);
+		sort(suffixes, suffixes + len, [this](const Suffix& a, const Suffix& b) {
+				return a.Rank[0] == b.Rank[0]
+					? (a.Rank[1] < b.Rank[1])
+					: (a.Rank[0] < b.Rank[0]);
+				});
+	int* index = new int[len];
+	for (int k = 4; k < 2 * len; k *= 2) {
+		int rank = 0;
+		int prevRank = suffixes[0].Rank[0];
+		suffixes[0].Rank[0] = rank;
+		index[suffixes[0].index] = 0;
+
+		for (int i = 1; i < len; ++i) {
+			if (suffixes[i].Rank[0] == prevRank &&
+				suffixes[i].Rank[1] == suffixes[i - 1].Rank[1]) {
+				suffixes[i].Rank[0] = rank;
+			}
+			else {
+				prevRank = suffixes[i].Rank[0];
+				suffixes[i].Rank[0] = ++rank;
+			}
+			index[suffixes[i].index] = i;
+		}
+
+		for (int i = 0; i < len; ++i) {
+			int nextIndex = suffixes[i].index + k / 2;
+			suffixes[i].Rank[1] = (nextIndex < len) ? suffixes[index[nextIndex]].Rank[0] : -1;
+		}
+
+		RadixSort(suffixes, len, rank + 1, 1);
+		RadixSort(suffixes, len, rank + 1, 0);
+		sort(suffixes, suffixes + len, [this](const Suffix& a, const Suffix& b) {
+			return a.Rank[0] == b.Rank[0]
+				? (a.Rank[1] < b.Rank[1])
+				: (a.Rank[0] < b.Rank[0]);
+			});
+			
+	}
+	for (int i = 0; i < len; ++i) {
+		SuffixArray[i] = suffixes[i].index;
+	}
+	for (int i = 0; i < len; ++i) {
+		cout << SuffixArray[i] << " ";
+	}
+
+	delete[] suffixes;
+	delete[] index;
+}
