@@ -29,7 +29,7 @@ int main() {
 	/*	sparsesinger.prints();*/
 		sparsesinger.addms("Love", 2020,"geeksforgeeks", 1);
 		//cout<<endl<<"index: "<< sparsesinger.search(1, 0, "for")<<endl;
-		cout << endl << "index: " << sparsesinger.countw(1, 0, "gee") << endl;
+		cout << "index: " << sparsesinger.countw(1, 0, "gee");
 		/*sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);
 		 sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);*/
 		sparsesinger.prints();
