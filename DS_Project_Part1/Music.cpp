@@ -3,32 +3,22 @@
 #include <cstring>
 int Music::GId = 0;
 
-int Music::len(char* arr)
-{
-	/*int size = 0;
-	while (arr[size] != '\0') {
-		size++;
-	}
-	return size;*/
-	return std::strlen(arr);
-}
-
-bool Music::strcomp(int i, int j)
-{
-	char* a = substr[SuffixArray[i]];
-	char* b = substr[SuffixArray[j]];
-	int k = 0;
-	while (a[k] != '\0' && b[k] != '\0') {
-		if (a[k] < b[k]) {
-			return true;
-		}
-		else if (a[k] > b[k]) {
-			return false;
-		}
-		k++;
-	}
-	return len(a) < len(b);
-}
+//bool Music::strcomp(int i, int j)
+//{
+//	char* a = substr[SuffixArray[i]];
+//	char* b = substr[SuffixArray[j]];
+//	int k = 0;
+//	while (a[k] != '\0' && b[k] != '\0') {
+//		if (a[k] < b[k]) {
+//			return true;
+//		}
+//		else if (a[k] > b[k]) {
+//			return false;
+//		}
+//		k++;
+//	}
+//	return len(a) < len(b);
+//}
 void Music::merge(int p, int q, int r)
 {
 	int n1 = (q - p) + 1;
@@ -108,6 +98,7 @@ void Music::RadixSort(Suffix*& suffixes, int n, int maxValue, int step) {
 void Music::build_SuffixArray() {
 	string str = lyrics;
 	int len = str.length();
+	
 	Suffix* suffixes = new Suffix[len];
 
 	for (int i = 0; i < len; ++i) {
@@ -118,11 +109,6 @@ void Music::build_SuffixArray() {
 
 	RadixSort(suffixes, len, 256, 1);
 	RadixSort(suffixes, len, 256, 0);
-		sort(suffixes, suffixes + len, [this](const Suffix& a, const Suffix& b) {
-				return a.Rank[0] == b.Rank[0]
-					? (a.Rank[1] < b.Rank[1])
-					: (a.Rank[0] < b.Rank[0]);
-				});
 	int* index = new int[len];
 	for (int k = 4; k < 2 * len; k *= 2) {
 		int rank = 0;
@@ -149,12 +135,7 @@ void Music::build_SuffixArray() {
 
 		RadixSort(suffixes, len, rank + 1, 1);
 		RadixSort(suffixes, len, rank + 1, 0);
-		sort(suffixes, suffixes + len, [this](const Suffix& a, const Suffix& b) {
-			return a.Rank[0] == b.Rank[0]
-				? (a.Rank[1] < b.Rank[1])
-				: (a.Rank[0] < b.Rank[0]);
-			});
-			
+		
 	}
 	for (int i = 0; i < len; ++i) {
 		SuffixArray[i] = suffixes[i].index;
@@ -165,4 +146,70 @@ void Music::build_SuffixArray() {
 
 	delete[] suffixes;
 	delete[] index;
+}
+int Music::search(const string& word)
+{
+	int start = 0;
+	int end = lyrics.length() - 1;  //implement
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		int index = SuffixArray[mid];
+		string str = lyrics.substr(index, word.length());  ////overload
+		if (str == word) {  //overload
+			return index;
+		}
+		if (str < word) {  //overload
+			start = mid + 1;
+		}
+		else {
+			end = mid - 1;
+		}
+	}
+	return -1;
+}
+
+int Music::countw(const string& word)
+{
+	int start = 0;
+	int end = lyrics.length() - 1;  //implement
+	int count = 0;
+	while (start <= end) {
+		int mid = start + (end - start) / 2;
+		int index = SuffixArray[mid];
+		string str = lyrics.substr(index, word.length());  ////overload
+		if (str == word) {  //overload
+			int left = mid - 1;
+			int right = mid + 1;
+			count++;
+			while (left >= start) {
+				index = SuffixArray[left];
+				str = lyrics.substr(index, word.length());
+				if (str == word) {
+					count++;
+					left--;
+				}
+				else {
+					break;
+				}
+			}
+			while (right <= end) {
+				index = SuffixArray[left];
+				str = lyrics.substr(index, word.length());
+				if (str == word) {
+					count++;
+					right++;
+				}
+				else {
+					break;
+				}
+			}
+			if (str < word) {  //overload
+				start = mid + 1;
+			}
+			else {
+				end = mid - 1;
+			}
+		}
+		return count;
+	}
 }

@@ -14,8 +14,7 @@ private:
 	void mergeSort(int, int);
 	void merge(int,int,int);
 	bool strcomp(int ,int);
-	int len(char*);
-	/*~Music();*/
+
 	
 	struct Suffix{
 		int index;
@@ -40,6 +39,8 @@ public:
 	int getId() {
 		return Id;
 	}
+	int search(const string&);
+	int countw(const string&);
 	void print()const {
 		cout << endl;
 		cout << "name : " << name << endl;

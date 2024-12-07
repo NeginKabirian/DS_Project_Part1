@@ -22,6 +22,8 @@ public:
 	void findmname(const string);
 	Music& searchmId(int music_id);
 	void delm(int, int, SparseSet<PlayList>&);
+	int search(int, int,const string&);
+	int countw(int, int,const string&);
 
 
 };
@@ -166,7 +168,39 @@ inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayL
 	}
 	cout << "music_id Not Found";
 	//delm from playlist
-};
+}
+template<typename T>
+inline int SparseSet<T>::countw(int artist_id, int music_id, const string& word)
+{
+	auto singer = dense[artist_id];
+	auto temp = singer.getMusic().GetHead();
+	while (temp) {
+		if (temp->getData().getId() == music_id) {
+			Music music = temp->getData();
+			return music.countw(word);
+		}
+		temp = temp->getNext();
+	}
+	if (temp == nullptr) {
+		throw exception("music not found");
+	}
+}
+template<>
+inline int SparseSet<Singer>::search(int artist_id, int music_id,const string& word)
+{
+	auto singer = dense[artist_id];
+	auto temp = singer.getMusic().GetHead();
+	while (temp) {
+		if (temp->getData().getId() == music_id) {
+			Music music = temp->getData();
+			return music.search(word);
+		}
+		temp = temp->getNext();
+	}
+	if (temp == nullptr) {
+		throw exception("music not found");
+	}
+}
 template<>
 inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<Singer>& singer) //search ig in All LinkedList>
 {
