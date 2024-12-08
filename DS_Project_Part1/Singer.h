@@ -9,10 +9,10 @@ class Singer {
 	string name;
 	LinkedList<Music> music;
 public:
-	Singer(string _name="", LinkedList<Music> _music = LinkedList<Music>()) : name(_name), music(_music) {
+	Singer(string _name) : name(_name),music(LinkedList<Music>()){
 		Id = ++GId;
 	}
-
+	Singer() : name(""), music(LinkedList<Music>()) {}
 	int getId() {
 		return Id;
 	}

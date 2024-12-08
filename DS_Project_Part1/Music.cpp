@@ -1,6 +1,5 @@
 ﻿#include "Music.h"
 #include <algorithm>
-#include <cstring>
 int Music::GId = 0;
 
 
@@ -134,15 +133,16 @@ void Music::build_SuffixArray() {
 int Music::search(const string& word)
 {
 	int start = 0;
-	int end = mystring.len(lyrics) - 1;  //implement
+	
+	int end = mystring.len(lyrics) - 1; 
 	while (start <= end) {
 		int mid = start + (end - start) / 2;
 		int index = SuffixArray[mid];
-		string str = lyrics.substr(index, mystring.len(word));  ////overload
-		if (str == word) {  //overload
+		string str = mystring.substr(lyrics, index, mystring.len(word));
+		if (mystring.equal(str,word)) {  
 			return index;
 		}
-		if (str < word) {  //overload
+		if (mystring.smaller(str, word)) {
 			start = mid + 1;
 		}
 		else {
@@ -161,17 +161,15 @@ int Music::countw(const string& word)
 	while (start <= end) {
 		int mid = start + (end - start) / 2;
 		int index = SuffixArray[mid];
-		string str = lyrics.substr(index, len);  ////overload
-		//string str = mystring.substr(lyrics, index, len);
-		if (str == word) {  //overload
+		string str = mystring.substr(lyrics, index, len);
+		if (mystring.equal(str, word)) { 
 			int left = mid - 1;
 			int right = mid + 1;
 			count++;
 			while (left >= start) {
 				index = SuffixArray[left];
-				//str = lyrics.substr(index, len);
 				str = mystring.substr(lyrics, index, len);
-				if (str == word) {
+				if (mystring.equal(str, word)) {
 					count++;
 					left--;
 				}
@@ -181,9 +179,8 @@ int Music::countw(const string& word)
 			}
 			while (right <= end) {
 				index = SuffixArray[left];
-				//str = lyrics.substr(index, len);
 				str = mystring.substr(lyrics, index, len);
-				if (str == word) {
+				if (mystring.equal(str, word)) {
 					count++;
 					right++;
 				}
@@ -191,7 +188,7 @@ int Music::countw(const string& word)
 					break;
 				}
 			}
-			if (str < word) {  //overload
+			if (mystring.smaller(str,word)) { 
 				start = mid + 1;
 			}
 			else {

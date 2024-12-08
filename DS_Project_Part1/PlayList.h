@@ -8,9 +8,10 @@ class PlayList
 	string name;
 	LinkedList<Music> music;
 public:
-	PlayList(string _name = "", LinkedList<Music> _music = LinkedList<Music>()) : name(_name), music(_music) {
-		Id = ++GId;
+	PlayList(string _name) : name(_name), music(LinkedList<Music>()) {
+		Id = GId++;
 	}
+	PlayList() : name(""), music(LinkedList<Music>()){}
 
 	int getId() {
 		return Id;
