@@ -25,7 +25,7 @@ public:
 	int search(int, int,const string&);
 	int countw(int, int,const string&);
 	Music& searchm(int, int);
-
+	void delmp(int, int);
 
 };
 
@@ -171,8 +171,8 @@ inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayL
 	cout << "music_id Not Found";
 	//delm from playlist
 }
-template<typename T>
-inline int SparseSet<T>::countw(int artist_id, int music_id, const string& word)
+template<>
+inline int SparseSet<Singer>::countw(int artist_id, int music_id, const string& word)
 {
 	auto singer = dense[artist_id];
 	auto temp = singer.getMusic().GetHead();
@@ -232,4 +232,18 @@ inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 	if (temp == nullptr) {
 		throw exception("music not found");
 	}
+}
+
+template<typename T>
+inline void SparseSet<T>::delmp(int playlist_id, int music_id)
+{
+	auto&  playlist = dense[playlist_id];
+	auto& temp = playlist.getMusic().GetHead();
+	while (temp) {
+		if (temp->getData().getId() == music_id) {
+			break; temp->getData();
+		}
+		temp = temp->getNext();
+	}
+	playlist.getMusic().pop_node(temp);
 }

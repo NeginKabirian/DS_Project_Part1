@@ -48,6 +48,7 @@ int main() {
 		pl.addpname("Bahar");
 		pl.addmp(0, 0, sparsesinger);
 		//.searchm(,10);
+		pl.delmp(0, 0);
 		cout << pl.searchm(0,0).getLyrics();
 	}
 	catch (const std::exception& x) {
