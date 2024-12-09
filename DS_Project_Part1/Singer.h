@@ -12,7 +12,8 @@ public:
 	Singer(string _name) : name(_name),music(LinkedList<Music>()){
 		Id = ++GId;
 	}
-	Singer() : name(""), music(LinkedList<Music>()) {}
+	Singer() : name(""), music(LinkedList<Music>()) ,Id(-1) {
+	}
 	int getId() {
 		return Id;
 	}

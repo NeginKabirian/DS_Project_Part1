@@ -10,29 +10,29 @@ int main() {
 		/*Singer singer("Negin",m1);
 		Singer singer1("Ebi", m1);*/
 		
-		SparseSet<Singer> sparsesinger(4,10);
-		sparsesinger.addsname("Ebi");
-		sparsesinger.addsname("Googosh");
-		//sparsesinger.findId(singer.getId());
-		//sparsesinger.delseId(1);
-		//sparsesinger.findId(singer.getId());
-		//sparsesinger.prints();
-		/*sparsesinger.cls();*/
-		/*string input;
-		while (true) {
-			std::getline(std::cin, input); 
-			if (input == "END") { 
-				break;
-			}
-			multilineInput += line + "\n"; 
-		}*/
-	/*	sparsesinger.prints();*/
-		//sparsesinger.addms("Love", 2020,"banana", 1);
-		//cout<<endl<<"index: "<< sparsesinger.search(1, 0, "for")<<endl;
-		//cout << "index: " << sparsesinger.countw(1, 0, "gee");
-		sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);  
-		//sparsesinger.addms("nothing", 2020, "Iopop", 1);
-		 //sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);*/
+	//	SparseSet<Singer> sparsesinger(4,10);
+	//	sparsesinger.addsname("Ebi");
+	//	sparsesinger.addsname("Googosh");
+	//	//sparsesinger.findId(singer.getId());
+	//	//sparsesinger.delseId(1);
+	//	//sparsesinger.findId(singer.getId());
+	//	//sparsesinger.prints();
+	//	/*sparsesinger.cls();*/
+	//	/*string input;
+	//	while (true) {
+	//		std::getline(std::cin, input); 
+	//		if (input == "END") { 
+	//			break;
+	//		}
+	//		multilineInput += line + "\n"; 
+	//	}*/
+	///*	sparsesinger.prints();*/
+	//	sparsesinger.addms("Love", 2020,"banana", 1);
+	//	//cout<<endl<<"index: "<< sparsesinger.search(1, 0, "for")<<endl;
+	//	//cout << "index: " << sparsesinger.countw(1, 0, "gee");
+	//	sparsesinger.addms("nothing", 2020, "I Love you\nbaby\nhoney ", 1);  
+	//	sparsesinger.addms("nothing", 2020, "Iopop", 1);
+	//	 sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
 		//sparsesinger.prints();
 		/*sparsesinger.findmname("Love");*/
 		
@@ -45,14 +45,37 @@ int main() {
 		for (int i = 0; i < 8; ++i) {
 			cout << arr[i] << " ";
 		}*/
+		/*pl.addpname("Bahar");
+		pl.addmp(0, 0, sparsesinger);
+		pl.addmp(1, 0, sparsesinger);
+		pl.addmp(2, 0, sparsesinger);
+		pl.addmp(3, 0, sparsesinger);*/
+		//.searchm(,10);
+		//pl.delmp(0, 0);
+		//cout << pl.searchm(0,0).getLyrics();
+	  // pl.searchpid(0);
+	  /* pl.showp(0);*/
+	}
+	catch (const std::exception& x) {
+		cout << x.what();
+	}
+	SparseSet<Singer> sparsesinger(4, 10);
+	sparsesinger.addsname("Ebi");
+	sparsesinger.addsname("Googosh");
+	sparsesinger.addms("Love", 2025, "banana", 1);
+	//cout<<endl<<"index: "<< sparsesinger.search(1, 0, "for")<<endl;
+	//cout << "index: " << sparsesinger.countw(1, 0, "gee");
+	try {
+		sparsesinger.addms("nothing", 2030, "I Love you\nbaby\nhoney ", 1);
+		sparsesinger.addms("nothing", 2020, "Iopop", 1);
+		sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
 		SparseSet<PlayList> pl(4, 10);
 		pl.addpname("Bahar");
 		pl.addmp(0, 0, sparsesinger);
 		pl.addmp(1, 0, sparsesinger);
-		//.searchm(,10);
-		//pl.delmp(0, 0);
-		//cout << pl.searchm(0,0).getLyrics();
-		pl.searchpid(0);
+		pl.addmp(2, 0, sparsesinger);
+		pl.addmp(3, 0, sparsesinger);
+		pl.showp(0);
 	}
 	catch (const std::exception& x) {
 		cout << x.what();

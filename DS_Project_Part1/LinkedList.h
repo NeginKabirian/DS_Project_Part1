@@ -46,6 +46,7 @@ public:
 	void print();
 	~LinkedList();
 	Node<T>*& GetHead();
+	Node<T>*& GetTail();
 private:
 	Node<T>* head;
 	Node<T>* tail;
@@ -63,6 +64,11 @@ bool LinkedList<T>::empty() const
 template<typename T>
 Node<T>*& LinkedList<T>::GetHead(){
 	return head;
+}
+template<typename T>
+inline Node<T>*& LinkedList<T>::GetTail()
+{
+	return tail;
 }
 template<typename T>
 LinkedList<T>::LinkedList() {
@@ -198,11 +204,9 @@ inline void LinkedList<Music>::print() {
 	for (Node<Music>* i = head; i != nullptr; i = i->next) {
 		std::cout << "Name: " << i->getData().getName() << std::endl;
 		std::cout << "Lyrics: " << i->getData().getLyrics() << std::endl;
+		cout << "year : " << i->getData().getYear()<<endl;
 	}
 }
 template<typename T>
 LinkedList<T>::~LinkedList() {
-	/*while (!empty()) {
-		pop_front();
-	}*/
 }

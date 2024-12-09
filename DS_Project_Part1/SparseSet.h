@@ -29,6 +29,7 @@ public:
 	int getSize();
 	T*& getDense();
 	void searchpid(int id);
+	void showp(int playlist_id);
 
 };
 
@@ -109,7 +110,7 @@ inline void SparseSet<Singer>::addms(const string music_name, int year, const st
 {
 	Music* music = new Music(music_name, year, lyrics);
 	   //cout <<"id" << music->getId();
-	if (artist_id < 0 || artist_id > maxValue|| sparse[dense[artist_id].getId()] == -1 ) {
+	if (artist_id < 0 || artist_id > maxValue|| artist_id >= size|| sparse[dense[artist_id].getId()] == -1 ) {
 		throw std::out_of_range("Invalid artist_id.");
 		return;
 	}
@@ -151,7 +152,7 @@ inline Music& SparseSet<Singer>::searchmId(int music_id)
 template<>
 inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayList>& playlist)
 {
-	if (artist_id < 0 || artist_id > maxValue || sparse[dense[artist_id].getId()] == -1) {
+	if (artist_id < 0 || artist_id > maxValue || artist_id >= size|| sparse[dense[artist_id].getId()] == -1) {
 		throw std::out_of_range("Invalid artist_id.");
 		return;
 	}
@@ -175,8 +176,6 @@ inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayL
 		}
 		temp = temp->getNext();
 	}
-	
-	
 		cout << "music_id Not Found";
 	}
 }
@@ -216,7 +215,7 @@ template<>
 inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<Singer>& singer) //search ig in All LinkedList>
 {
 	auto&  playlist = dense[playlist_id];
-	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue ||  sparse[playlist.getId()] == -1) {
+	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue || playlist_id >= size  ||  sparse[playlist.getId()] == -1) {  //error
 		throw std::out_of_range("Invalid Id.");
 	}
 	auto& music = singer.searchmId(music_id);
@@ -228,7 +227,7 @@ template<>
 inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 {
 	auto  playlist = dense[playlist_id];
-	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue || sparse[playlist.getId()] == -1) {
+	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue || playlist_id >= size || sparse[playlist.getId()] == -1) {
 		throw std::out_of_range("Invalid Id.");
 	}
 	auto& temp = playlist.getMusic().GetHead();
@@ -239,7 +238,9 @@ inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 		temp = temp->getNext();
 	}
 	if (temp == nullptr) {
-		throw exception("music not found");
+		//throw exception("music not found");
+		cout << "music not found";
+		
 	}
 }
 
@@ -289,4 +290,13 @@ inline void SparseSet<PlayList>::searchpid(int id)
 		}
 	}
 	
+}
+
+template<>
+inline void SparseSet<PlayList>::showp(int playlist_id)
+{
+	auto& playlist = dense[playlist_id];
+	auto& music = playlist.getMusic();
+	playlist.quickSort(music.GetHead(), music.GetTail());
+	music.print();
 }

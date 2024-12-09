@@ -29,14 +29,18 @@ public:
 		substr = nullptr;
 		build_SuffixArray();
 	}
+	Music() : Id(-1){}
 	string getLyrics()const {
 		return lyrics;
 	}
 	string getName()const {
 		return name;
 	}
-	int getId() {
+	int getId()const {
 		return Id;
+	}
+	int& getYear(){
+		return year;
 	}
 	int search(const string&);
 	int countw(const string&);
