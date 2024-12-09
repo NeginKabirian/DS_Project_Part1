@@ -28,6 +28,7 @@ public:
 	void delmp(int, int);
 	int getSize();
 	T*& getDense();
+	void searchpid(int id);
 
 };
 
@@ -266,4 +267,26 @@ template<typename T>
 inline T*& SparseSet<T>::getDense()
 {
 	return dense;
+}
+
+template<>
+inline void SparseSet<PlayList>::searchpid(int id)
+{
+	int start = 0;
+	int end = 0;
+	while (start <= end) {
+		int mid = start + (end - start)/ 2;
+		if (dense[mid].getId() == id) {
+			//print
+			dense[mid].printAllInfo();
+			return;
+		}
+		if (dense[mid].getId() < id) {
+			start = mid + 1;
+		}
+		else {
+			end = mid - 1;
+		}
+	}
+	
 }

@@ -58,26 +58,70 @@ void Music::mergeSort(int p, int r)
 	}
 }
 
+//void Music::RadixSort(Suffix*& suffixes, int n, int maxValue, int step) {
+//	Suffix* temp = new Suffix[n];
+//	int* start = new int[maxValue + 2](); 
+//	for (int i = 0; i < n; ++i) {
+//		start[suffixes[i].Rank[step] + 1]++; 
+//	}
+//	for (int i = 1; i <= maxValue + 1; ++i) {
+//		start[i] += start[i - 1];
+//	}
+//	for (int i = n - 1; i >= 0; --i) {
+//		int rankVal = suffixes[i].Rank[step] + 1; 
+//		temp[start[rankVal] - 1] = suffixes[i];   //error
+//		start[rankVal]--;
+//	}
+//	for (int i = 0; i < n; ++i) {
+//		suffixes[i] = temp[i];
+//	}
+//
+//	delete[] temp;
+//	delete[] start;
+//}
 void Music::RadixSort(Suffix*& suffixes, int n, int maxValue, int step) {
-	Suffix* temp = new Suffix[n];
-	int* start = new int[maxValue + 2](); 
+	int minValue = 0; 
 	for (int i = 0; i < n; ++i) {
-		start[suffixes[i].Rank[step] + 1]++; 
+		if (suffixes[i].Rank[step] < minValue) {
+			minValue = suffixes[i].Rank[step];
+		}
 	}
-	for (int i = 1; i <= maxValue + 1; ++i) {
+
+	int offset = -minValue; 
+	int range = maxValue + offset + 1;
+
+	Suffix* temp = new Suffix[n];
+	int* start = new int[range + 1]();
+
+	
+	for (int i = 0; i < n; ++i) {
+		start[suffixes[i].Rank[step] + offset + 1]++;
+	}
+	
+	for (int i = 1; i <= range; ++i) {
 		start[i] += start[i - 1];
 	}
+	
 	for (int i = n - 1; i >= 0; --i) {
-		int rankVal = suffixes[i].Rank[step] + 1; 
+		int rankVal = suffixes[i].Rank[step] + offset + 1;
 		temp[start[rankVal] - 1] = suffixes[i];
 		start[rankVal]--;
 	}
+	
 	for (int i = 0; i < n; ++i) {
 		suffixes[i] = temp[i];
 	}
 
 	delete[] temp;
 	delete[] start;
+}
+
+int Music::cmp(Suffix a, Suffix b)
+{
+	if (a.Rank[0] == b.Rank[0]) {
+		return a.Rank[1] < b.Rank[1];  
+	}
+	return a.Rank[0] < b.Rank[0];  
 }
 void Music::build_SuffixArray() {
 	string str = lyrics;
@@ -86,12 +130,19 @@ void Music::build_SuffixArray() {
 
 	for (int i = 0; i < len; ++i) {
 		suffixes[i].index = i;
-		suffixes[i].Rank[0] = str[i] - 'a';
+		suffixes[i].Rank[0] = str[i] - 'َa';
 		suffixes[i].Rank[1] = (i + 1 < len) ? str[i + 1] - 'a' : -1;
 	}
 
 	RadixSort(suffixes, len, 256, 1);
 	RadixSort(suffixes, len, 256, 0);
+
+	/*sort(suffixes, suffixes + len, [this](Suffix a, Suffix b) {
+		return cmp(a, b);
+		});
+	sort(suffixes, suffixes + len, [this](Suffix a, Suffix b) {
+		return cmp(a, b);
+		});*/
 	int* index = new int[len];
 	for (int k = 4; k < 2 * len; k *= 2) {
 		int rank = 0;
@@ -118,6 +169,12 @@ void Music::build_SuffixArray() {
 
 		RadixSort(suffixes, len, rank + 1, 1);
 		RadixSort(suffixes, len, rank + 1, 0);
+		/*sort(suffixes, suffixes + len, [this](Suffix a, Suffix b) {
+			return cmp(a, b);  
+			});
+		sort(suffixes, suffixes + len, [this](Suffix a, Suffix b) {
+			return cmp(a, b);  
+			});*/
 		
 	}
 	for (int i = 0; i < len; ++i) {

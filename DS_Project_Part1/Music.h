@@ -14,11 +14,13 @@ private:
 	char** substr;
 	void mergeSort(int, int);
 	void merge(int,int,int);
+	
 	MyString mystring;
 	struct Suffix{
 		int index;
 		int Rank[2];
 	};
+	int cmp(Suffix a, Suffix b);
 	void RadixSort(Suffix*& suffixes,int n, int maxRank, int step);
 public:
 	Music(string _name, int _year,string _lyrics) : name(_name), year(_year), lyrics(_lyrics) {
