@@ -1,6 +1,8 @@
 #pragma once
 #include "Singer.h"
 #include "PlayList.h"
+#include "Queue.h"
+#include <type_traits>
 template <typename T>
 class SparseSet
 {
@@ -9,6 +11,7 @@ class SparseSet
 	int size;
 	int capacity;
 	int maxValue;
+	Queue<PlayList>* queue;
 public:
 	SparseSet(int , int);
 	void addsname(const string&);
@@ -30,6 +33,8 @@ public:
 	T*& getDense();
 	void searchpid(int id);
 	void showp(int playlist_id);
+	void addqpid(int id);
+	void pop();
 
 };
 
@@ -39,6 +44,14 @@ inline SparseSet<T>::SparseSet(int _capacity , int _maxValue) : capacity(_capaci
 	sparse = new int[maxValue + 1];
 	dense = new T[capacity];
 	size = 0;
+}
+template<>
+inline SparseSet<PlayList>::SparseSet(int _capacity, int _maxValue) : capacity(_capacity), maxValue(_maxValue)
+{
+	sparse = new int[maxValue + 1];
+	dense = new PlayList[capacity];
+	size = 0;
+	queue = new Queue<PlayList>(2);
 }
 template<>
 inline void SparseSet<Singer>::addsname(const string& name)
@@ -299,4 +312,18 @@ inline void SparseSet<PlayList>::showp(int playlist_id)
 	auto& music = playlist.getMusic();
 	playlist.quickSort(music.GetHead(), music.GetTail());
 	music.print();
+}
+
+template<typename T>
+inline void SparseSet<T>::addqpid(int id)
+{
+	auto& playlist = dense[id];
+	queue->push(playlist);
+
+}
+
+template<typename T>
+inline void SparseSet<T>::pop()
+{
+	queue->pop();
 }

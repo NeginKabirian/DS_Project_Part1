@@ -65,20 +65,29 @@ int main() {
 	sparsesinger.addms("Love", 2025, "banana", 1);
 	//cout<<endl<<"index: "<< sparsesinger.search(1, 0, "for")<<endl;
 	//cout << "index: " << sparsesinger.countw(1, 0, "gee");
-	try {
+	//try {
 		sparsesinger.addms("nothing", 2030, "I Love you\nbaby\nhoney ", 1);
 		sparsesinger.addms("nothing", 2020, "Iopop", 1);
 		sparsesinger.addms("Love", 2018, "I hate you\nbaby\nhoney ", 0);
 		SparseSet<PlayList> pl(4, 10);
 		pl.addpname("Bahar");
+		pl.addpname("B");
+		pl.addpname("C");
+		pl.addpname("D");
 		pl.addmp(0, 0, sparsesinger);
 		pl.addmp(1, 0, sparsesinger);
 		pl.addmp(2, 0, sparsesinger);
 		pl.addmp(3, 0, sparsesinger);
 		pl.showp(0);
-	}
-	catch (const std::exception& x) {
-		cout << x.what();
-	}
+		pl.addqpid(0);
+		pl.addqpid(1);
+		pl.addqpid(2);
+		pl.addqpid(3);
+		pl.pop();
+
+	//}
+	//catch (const std::exception& x) {
+	//	cout << x.what();
+	////}
 	
 }
