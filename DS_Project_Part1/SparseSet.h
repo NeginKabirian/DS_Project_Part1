@@ -29,12 +29,12 @@ public:
 	int countw(int, int,const string&);
 	Music& searchm(int, int);
 	void delmp(int, int);
-	int getSize();
-	T*& getDense();
 	void searchpid(int id);
 	void showp(int playlist_id);
 	void addqpid(int id);
 	void pop();
+	int getSize();
+	T*& getDense();
 
 };
 
