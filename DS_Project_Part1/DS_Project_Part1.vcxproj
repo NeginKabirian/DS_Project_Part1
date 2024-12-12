@@ -136,6 +136,7 @@
     <ClInclude Include="Sort.h" />
     <ClInclude Include="SparseSet.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="Ux.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LinkedList.cpp" />

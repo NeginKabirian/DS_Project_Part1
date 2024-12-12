@@ -72,7 +72,7 @@ template<>
 inline void SparseSet<Singer>::delseId(int id)
 {
 	if (id < 0 || sparse[dense[id].getId()] == -1) {
-		throw std::out_of_range("Invalid id for deletion.");
+		throw std::out_of_range("Invalid id for deletion.\n");
 	}
 		Singer temp = dense[size - 1];
 		dense[sparse[id]] = temp;
@@ -85,7 +85,7 @@ template<>
 inline void SparseSet<Singer>::findId(int id)
 {
 	if (id < 0 || sparse[dense[id].getId()] == -1) {
-		throw std::out_of_range("Invalid id for searching.");
+		throw std::out_of_range("Invalid id for searching.\n");
 	}
 	Singer singer = dense[sparse[id]];
 	singer.print();
@@ -108,12 +108,12 @@ inline void SparseSet<PlayList>::addpname(const string& name)
 {
 	PlayList* p = new PlayList(name);
 	if (size >= capacity) {
-		cout << "Sparese is Full";
+		cout << "Sparese is Full\n";
 	}
 	//search
 	dense[size] = *p;
 	if (p->getId() > maxValue) {
-		throw std::out_of_range("Invalid id for deletion.");
+		throw std::out_of_range("Invalid id for deletion.\n");
 		return;
 	}
 	sparse[p->getId()] = size++;
@@ -124,7 +124,7 @@ inline void SparseSet<Singer>::addms(const string music_name, int year, const st
 	Music* music = new Music(music_name, year, lyrics);
 	   //cout <<"id" << music->getId();
 	if (artist_id < 0 || artist_id > maxValue|| artist_id >= size|| sparse[dense[artist_id].getId()] == -1 ) {
-		throw std::out_of_range("Invalid artist_id.");
+		throw std::out_of_range("Invalid artist_id.\n");
 		return;
 	}
 	dense[artist_id].getMusic().push_front(*music);
@@ -229,7 +229,7 @@ inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<
 {
 	auto&  playlist = dense[playlist_id];
 	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue || playlist_id >= size  ||  sparse[playlist.getId()] == -1) {  //error
-		throw std::out_of_range("Invalid Id.");
+		throw std::out_of_range("Invalid Id.\n");
 	}
 	auto& music = singer.searchmId(music_id);
 	
@@ -241,7 +241,7 @@ inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 {
 	auto  playlist = dense[playlist_id];
 	if (music_id < 0 || playlist_id < 0 || playlist_id > maxValue || playlist_id >= size || sparse[playlist.getId()] == -1) {
-		throw std::out_of_range("Invalid Id.");
+		throw std::out_of_range("Invalid Id.\n");
 	}
 	auto& temp = playlist.getMusic().GetHead();
 	while (temp) {
