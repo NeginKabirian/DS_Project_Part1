@@ -180,9 +180,9 @@ void Music::build_SuffixArray() {
 	for (int i = 0; i < len; ++i) {
 		SuffixArray[i] = suffixes[i].index;
 	}
-	for (int i = 0; i < len; ++i) {
+	/*for (int i = 0; i < len; ++i) {
 		cout << SuffixArray[i] << " ";
-	}
+	}*/
 
 	delete[] suffixes;
 	delete[] index;

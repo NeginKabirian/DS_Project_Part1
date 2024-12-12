@@ -1,4 +1,5 @@
 #include"SparseSet.h"
+using namespace std;
 //int main() {
 //	try {
 //		/*LinkedList<Music> m1;*/
@@ -101,13 +102,13 @@ void displaySingerMenu() {
     std::cout << "7 - Delete a music item (delm)\n";
     std::cout << "8 - Add a music item with details (addms)\n";
     std::cout << "9 - Search for substr in lyrics(search)\n";
-    std::cout << "10 - Search for a music item by ID (searchmId)\n";
+    std::cout << "10 - Count words matching a pattern (countw)\n";
     std::cout << "Enter your choice: ";
 }
 void displayPlayListMenu() {
     std::cout << "1 - Add a playlist name (addpname)\n";
     std::cout << "7 - Add a singer to a specific music item (addmp)\n";
-    std::cout << "10 - Count words matching a pattern (countw)\n";
+   
     std::cout << "14 - Search for a music item in SparseSet (searchm)\n";
     std::cout << "15 - Delete a music item from SparseSet (delmp)\n";
     std::cout << "16 - Search a playlist by ID (searchpid)\n";
@@ -218,63 +219,82 @@ void sparsSinger(SparseSet<Singer>& S,SparseSet<PlayList>& P) {
                 }
             }
             break;
-        //    case 8: {
-        //        string music_name = "";
-        //        cout << "\nmusic_name : ";
-        //        cin >> music_name;
-        //        int year;
-        //        cout << "\nyear : ";
-        //        cin >> year;
-        //        
-        //        string lyrics = "";
-        //        bool in_quotes = false;
-        //        char c1 , c2;
-        //        cin.ignore();
-        //        c1 = getchar();
-        //        //while (1) {
-        //        //    c2 = getchar();
-        //        //    while (c2 != '“') {
-        //        //        c2 = getchar();
-        //        //        lyrics += c2;
-        //        //    }
-        //        //    lyrics += '\n';
-        //        //    c1 = getchar();
-        //        //    if (c1 != '“')
-        //        //        break;
-        //        //}
-        //        while (true) {
-        //            string line;
-        //            getline(cin, line); 
- 
-        //            for (char ch : line) {
-        //                if (ch == '“') {
-        //                    in_quotes = !in_quotes;
-        //                }
-        //            }
-        //            if (!in_quotes && line.empty()) {
-        //                break;
-        //            }
+            case 8: {
+                std::string music_name;
+                int year;
+                std::string lyrics;
+                int artist_Id;
+                MyString mystring;
+                std::cin.ignore();
+                cin >> music_name;
+                cin >> year;
 
-        //            lyrics += line + "\n";    
-        //        }
+                
+               // std::cout << "\nEnter lyrics line by line (each line must start and end with \"). Enter a line without \" to finish:\n";
+                std::cin.ignore(); 
 
-        //        if (lyrics.empty()) {
-        //            cout << "No lyrics provided." << endl;
-        //            break;
-        //        }
-        //        getchar();
-        //        int artist_Id;
-        //        cout << "\nartist_name : ";
-        //        cin >> artist_Id;
-        //        try {
-        //            S.addms(music_name, year, lyrics, artist_Id);
-        //        }
-        //        catch (const std::exception& x) {
-        //            cout << x.what();
-        //        }
-        //    }
-        //      break;
+                string line;
+                while (true) {
+                    std::getline(std::cin, line);
+                    if (line.empty() || line.front() != '"' || line.back() != '"') {
+                        break; 
+                    }
+                    //lyrics += line.substr(1, line.size() - 2) + "\n"; 
+                    lyrics += mystring.substr(line, 1, mystring.len(line)) + "\n";
+                }
+
+                
+                artist_Id = stoi(line);
+                try {
+                   
+                    S.addms(music_name, year, lyrics, artist_Id);
+                    std::cout << "\nMusic added successfully!";
+                }
+                catch (const std::exception& e) {
+                    std::cout << "\nError: " << e.what();
+                }
+                break;
+            }
+
+            case 9:
+            {
+                int artist_Id;
+                cout << "\nartist_Id : ";
+                cin >> artist_Id;
+                int music_id;
+                cout << "\nmusic_id : ";
+                cin >> music_id;
+                string lyrics;
+                cout << "\nName : ";
+                cin >> lyrics;
+                try {
+                    S.search(artist_Id, music_id, lyrics);
+                }
+                catch (const std::exception& x) {
+                    cout << x.what();
+                }
+            }
+            break;
+            case 10:
+            {
+                int artist_Id;
+                cout << "\nartist_Id : ";
+                cin >> artist_Id;
+                int music_id;
+                cout << "\nmusic_id : ";
+                cin >> music_id;
+                string lyrics;
+                cout << "\nName : ";
+                cin >> lyrics;
+                try {
+                    S.countw(artist_Id, music_id, lyrics);
+                }
+                catch (const std::exception& x) {
+                    cout << x.what();
+                }
+            }
         }
+           
     } while (choice);
 }
 int main() {
@@ -283,7 +303,7 @@ int main() {
     do {
         displayMainMenu();
         std::cin >> Mainchoice;
-        cout << endl;
+        std::cout << endl;
         switch (Mainchoice) {
             case 1 :
                 int scapacity;
