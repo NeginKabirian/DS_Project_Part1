@@ -53,6 +53,7 @@ inline void Queue<T>::push(const T& data)
 	}
 	rear = (rear + 1) % capacity;
 	arr[rear] = data;
+	cout << "PlayList Pushed successfully!\n";
 	
 }
 
@@ -60,16 +61,17 @@ template<typename T>
 inline void Queue<T>::pop()
 {
 	if (rear == front) {
-		throw exception("Queue is empty");
+		throw exception("Queue is empty\n");
 	}
 	front = (front + 1) % capacity;
+	cout << "PlayList Poped successfully!\n";
 }
 
 template<typename T>
 inline T& Queue<T>::getFront() const
 {
 	if (rear == front) {
-		throw exception("Queue is empty");
+		throw exception("Queue is empty\n");
 	}
 	return arr[(front + 1) % capacity];
 }
@@ -78,7 +80,7 @@ template<typename T>
 inline T& Queue<T>::getRear() const
 {
 	if (rear == front) {
-		throw exception("Queue is empty");
+		throw exception("Queue is empty\n");
 	}
 	return arr[rear];
 }

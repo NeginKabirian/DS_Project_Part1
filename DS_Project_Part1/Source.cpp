@@ -24,7 +24,7 @@ int main() {
                     sparsePlayList(S, P);
                 }
                 catch (const std::exception& x) {
-                    cout << x.what();
+                    cout << x.what(); 
                 }
                 break;
         }

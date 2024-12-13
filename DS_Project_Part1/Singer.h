@@ -10,7 +10,7 @@ class Singer {
 	LinkedList<Music> music;
 public:
 	Singer(string _name) : name(_name),music(LinkedList<Music>()){
-		Id = ++GId;
+		Id = GId++;
 	}
 	Singer() : name(""), music(LinkedList<Music>()) ,Id(-1) {
 	}
@@ -21,6 +21,7 @@ public:
 		return music;
 	}
 	void printAllInfo() {
+		cout << "Singer_Id : " << Id << endl;
 		cout << "Singer : " << name<<endl;
 		cout << "music :"<<endl;
 		music.print();

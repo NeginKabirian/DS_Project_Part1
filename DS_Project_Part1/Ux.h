@@ -8,11 +8,12 @@ void displaySingerMenu() {
     std::cout << "3 - Find an entry by singer ID (findId)\n";
     std::cout << "4 - Print all entries (prints)\n";
     std::cout << "5 - Clear all data (cls)\n";
-    std::cout << "6 - Find a music item by Id (findmname)\n";
+    std::cout << "6 - Find a music item by Name (findmname)\n";
     std::cout << "7 - Delete a music item (delm)\n";
     std::cout << "8 - Add a music item with details (addms)\n";
     std::cout << "9 - Search for substr in lyrics(search)\n";
     std::cout << "10 - Count words matching a pattern (countw)\n";
+    std::cout << "0 - Exit\n";
     std::cout << "Enter your choice: ";
 }
 void displayMainMenu() {
@@ -25,6 +26,7 @@ void displayMainMenu() {
 void sparsSinger(SparseSet<Singer>& S, SparseSet<PlayList>& P) {
     int choice = -1;
     do {
+        cout << endl;
         displaySingerMenu();
         std::cin >> choice;
         cout << endl;
@@ -138,7 +140,7 @@ void sparsSinger(SparseSet<Singer>& S, SparseSet<PlayList>& P) {
                     break;
                 }
                 //lyrics += line.substr(1, line.size() - 2) + "\n"; 
-                lyrics += mystring.substr(line, 1, mystring.len(line)) + "\n";  //Implement concat
+                lyrics += mystring.substr(line, 1, mystring.len(line) - 2) + "\n";  //Implement concat
             }
 
 
@@ -163,10 +165,10 @@ void sparsSinger(SparseSet<Singer>& S, SparseSet<PlayList>& P) {
             cout << "\nmusic_id : ";
             cin >> music_id;
             string lyrics;
-            cout << "\nName : ";
+            cout << "\nsubstr : ";
             cin >> lyrics;
             try {
-                S.search(artist_Id, music_id, lyrics);
+                cout<<"index : "<< S.search(artist_Id, music_id, lyrics);
             }
             catch (const std::exception& x) {
                 cout << x.what();
@@ -182,10 +184,10 @@ void sparsSinger(SparseSet<Singer>& S, SparseSet<PlayList>& P) {
             cout << "\nmusic_id : ";
             cin >> music_id;
             string lyrics;
-            cout << "\nName : ";
+            cout << "\nsubstr : ";
             cin >> lyrics;
             try {
-                S.countw(artist_Id, music_id, lyrics);
+               cout <<"count : "<< S.countw(artist_Id, music_id, lyrics);
             }
             catch (const std::exception& x) {
                 cout << x.what();
@@ -204,12 +206,13 @@ void displayPlayListMenu() {
     std::cout << "6 - Show details of a playlist (showp)\n";
     std::cout << "7 - Add to playlist queue by ID (addqpid)\n";
     std::cout << "8 - Remove from the playlist queue (pop)\n";
+    std::cout << "0 - Exit\n";
     std::cout << "Enter your choice: ";
 }
 void sparsePlayList(SparseSet<Singer>& S, SparseSet<PlayList>& P) {
     int choice = -1;
     do {
-        displaySingerMenu();
+        displayPlayListMenu();
         std::cin >> choice;
         cout << endl;
         switch (choice) {

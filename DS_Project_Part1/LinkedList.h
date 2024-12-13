@@ -203,8 +203,9 @@ template<>
 inline void LinkedList<Music>::print() {
 	for (Node<Music>* i = head; i != nullptr; i = i->next) {
 		std::cout << "Name: " << i->getData().getName() << std::endl;
+		std::cout << "music_id: " << i->getData().getId() << std::endl;
 		std::cout << "Lyrics: " << i->getData().getLyrics() << std::endl;
-		cout << "year : " << i->getData().getYear()<<endl;
+		cout << "year : " << i->getData().getYear()<<endl<<endl<<endl;
 	}
 }
 template<typename T>
