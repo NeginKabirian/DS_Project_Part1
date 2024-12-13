@@ -42,6 +42,9 @@ template<typename T>
 inline SparseSet<T>::SparseSet(int _capacity , int _maxValue) : capacity(_capacity) , maxValue(_maxValue)
 {
 	sparse = new int[maxValue + 1];
+	for (int i = 0; i <= maxValue; ++i) {
+		sparse[i] = -1;
+	}
 	dense = new T[capacity];
 	size = 0;
 }
@@ -90,7 +93,7 @@ inline void SparseSet<Singer>::delseId(int id)
 template<>
 inline void SparseSet<Singer>::findId(int id)
 {
-	if (id < 0 || size <= 0) {
+	if (id < 0 || size <= 0 || sparse[id] == -1 || id > maxValue) {
 		throw std::out_of_range("Invalid id for searching.\n");
 	}
 	Singer& singer = dense[sparse[id]];
@@ -132,7 +135,7 @@ inline void SparseSet<Singer>::addms(const string music_name, int year, const st
 {
 	Music* music = new Music(music_name, year, lyrics);
 	   //cout <<"id" << music->getId();
-	if (artist_id < 0 || artist_id > maxValue|| sparse[dense[artist_id].getId()] == -1  || size <= 0) {
+	if (artist_id < 0 || artist_id > maxValue|| sparse[artist_id] == -1 || size <= 0) {
 		throw std::out_of_range("Invalid artist_id.\n");
 		return;
 	}
@@ -175,13 +178,13 @@ inline Music& SparseSet<Singer>::searchmId(int music_id)
 template<>
 inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayList>& playlist)
 {
-	if (artist_id < 0 || artist_id > maxValue || artist_id >= size || size <=0) {
+	if (artist_id < 0 || artist_id > maxValue || artist_id >= size || size <=0|| sparse[artist_id] == -1) {
 		throw std::out_of_range("Invalid artist_id.");
 		return;
 	}
 	
 	
-	//Singer& singer = dense[sparse[artist_id]]; //here
+	
 
 	int denseIndex = sparse[artist_id];
 	if (denseIndex == -1) {
@@ -208,7 +211,6 @@ inline void SparseSet<Singer>::delm(int artist_id, int music_id, SparseSet<PlayL
 template<>
 inline int SparseSet<Singer>::countw(int artist_id, int music_id, const string& word)
 {
-	/*auto singer = dense[artist_id];*/
 	int denseIndex = sparse[artist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
@@ -229,7 +231,7 @@ inline int SparseSet<Singer>::countw(int artist_id, int music_id, const string& 
 template<>
 inline int SparseSet<Singer>::search(int artist_id, int music_id,const string& word)
 {
-	/*auto singer = dense[artist_id];*/
+	
 	int denseIndex = sparse[artist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
@@ -250,7 +252,7 @@ inline int SparseSet<Singer>::search(int artist_id, int music_id,const string& w
 template<>
 inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<Singer>& singer) //search ig in All LinkedList>
 {
-	//auto&  playlist = dense[playlist_id];
+	
 	int denseIndex = sparse[playlist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
