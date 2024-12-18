@@ -139,7 +139,7 @@ inline void SparseSet<Singer>::addms(const string music_name, int year, const st
 		throw std::out_of_range("Invalid artist_id.\n");
 		return;
 	}
-	dense[artist_id].getMusic().push_front(*music);
+	dense[sparse[artist_id]].getMusic().push_front(*music); //
 }
 template<>
 inline void SparseSet<Singer>::findmname(const string music_name)  
@@ -269,7 +269,6 @@ inline void SparseSet<PlayList>::addmp(int music_id, int playlist_id, SparseSet<
 template<>
 inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 {
-	//auto  playlist = dense[playlist_id];
 	int denseIndex = sparse[playlist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
@@ -296,7 +295,6 @@ inline Music& SparseSet<PlayList>::searchm(int playlist_id, int music_id)
 template<typename T>
 inline void SparseSet<T>::delmp(int playlist_id, int music_id)
 {
-	//auto&  playlist = dense[playlist_id];
 	int denseIndex = sparse[playlist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
@@ -349,7 +347,7 @@ inline void SparseSet<PlayList>::searchpid(int id)
 template<>
 inline void SparseSet<PlayList>::showp(int playlist_id)
 {
-	//auto& playlist = dense[playlist_id];
+
 	int denseIndex = sparse[playlist_id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
@@ -363,7 +361,7 @@ inline void SparseSet<PlayList>::showp(int playlist_id)
 template<typename T>
 inline void SparseSet<T>::addqpid(int id)
 {
-	//auto& playlist = dense[id];
+	
 	int denseIndex = sparse[id];
 	if (denseIndex == -1) {
 		throw std::out_of_range("Artist ID not found in sparse set.");
